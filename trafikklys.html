@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trafikklys</title>
+    <style>
+        .lys{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid black;
+        }
+       
+    </style>
+</head>
+<body>
+
+    <div class="lys" id="red"></div>
+    <div class="lys" id="red-yellow"></div>
+    <div class="lys" id="green"></div>
+
+    <br />
+
+    <button onclick="red()">Rødt</button>
+    <button onclick="redAndYellow()">Rødt og gult</button>
+    <button onclick="green()">Grønt</button>
+
+    <br />
+    <button onclick="start()">Automatiser!</button>
+    <button onclick="stop()">Stopp automatisering</button>
+
+
+
+    <script>
+        let redDiv = document.getElementById('red');
+        let redYellowDiv = document.getElementById('red-yellow');
+        let greenDiv = document.getElementById('green');
+
+        let timeout;
+        let autoOn;
+        let state = 0;
+        
+        function red(){
+            redDiv.style.backgroundColor = 'red';
+            redYellowDiv.style.backgroundColor = 'white';
+            greenDiv.style.backgroundColor = 'white';
+
+
+        }
+        function redAndYellow(){
+            redDiv.style.backgroundColor = 'red';
+            redYellowDiv.style.backgroundColor = 'yellow';
+            greenDiv.style.backgroundColor = 'white';
+        }
+        function green(){
+            redDiv.style.backgroundColor = 'white';
+            redYellowDiv.style.backgroundColor = 'white';
+            greenDiv.style.backgroundColor = 'green';
+        }
+
+        function automatic(){
+            if(state == 0){
+                red();
+            }
+            else if(state == 1){
+                redAndYellow();
+            }
+            else if(state == 2){
+                green();
+            }
+            state ++;
+            if (state > 2){
+                state = 0;
+            }
+
+            timeout = setTimeout(automatic, 3000);
+            
+        }        
+            
+
+
+        
+        function start(){
+            if(!autoOn){
+                autoOn = 1;
+                automatic();
+            }
+            
+           
+        }
+
+        function stop(){
+            clearTimeout(timeout);
+            autoOn = 0;
+        }
+
+
+
+    </script>
+    
+</body>
+</html>
